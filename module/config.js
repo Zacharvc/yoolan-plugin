@@ -7,7 +7,7 @@ const _logPath = `${_path}/plugins/yoolan-plugin/config/updateLog.yaml`;
 const yoolanVersion = 0;
 //
 let packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
-let updateLog = YAML.parse(fs.readfileSync(_logPath, "utf-8").toString());
+let updateLog = YAML.parse(fs.readFileSync(_logPath, "utf-8").toString());
 //
 yoolanVersion = Object.keys(updateLog.version)[0];
 //
