@@ -1,6 +1,6 @@
 import {segment} from "oicq";
 import {exec} from "child_process";
-import {yoolanVersion, currentLog} from "../module/config.js";
+import {yoolanVersion, updateLog} from "../module/config.js";
 
 const _path = process.cwd();
 const _yoolanPluginPath = `${_path}/plugins/yoolan-plugin/`;
@@ -94,7 +94,7 @@ export class admin extends plugin{
 		if(!e.isMaster) return;
 		//
 		let replyMsg = [`当前版本: ${yoolanVersion}`];
-		for(let content of currentLog[yoolanVersion]) replyMsg.push(content);
+		for(let content of updateLog[yoolanVersion]) replyMsg.push(content);
 		//
 		e.reply(replyMsg.join("\n"));
 		//
