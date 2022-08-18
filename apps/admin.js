@@ -5,6 +5,8 @@ import {yoolanVersion, currentLog} from "../module/config.js";
 const _path = process.cwd();
 const _yoolanPluginPath = `${_path}/plugins/yoolan-plugin/`;
 
+let timer;
+
 export class admin extends plugin{
 	constructor(){
 		super({
