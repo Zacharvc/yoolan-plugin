@@ -8,7 +8,7 @@ let initMsg = [
 	"===================="
 ];
 //
-if(!isV3) initMsg.push("当前不是v3云崽！")
+if(!isV3) initMsg.push("当前不是v3云崽！");
 //打印日志
 for(let Amsg of initMsg) logger.info(Amsg);
 //
