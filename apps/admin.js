@@ -94,7 +94,7 @@ export class admin extends plugin{
 		if(!e.isMaster) return;
 		//
 		let replyMsg = [`当前版本: ${yoolanVersion}`];
-		for(let content of updateLog[yoolanVersion]) replyMsg.push(content);
+		for(let content of updateLog.version[yoolanVersion]) replyMsg.push(content);
 		//
 		e.reply(replyMsg.join("\n"));
 		//
