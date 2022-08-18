@@ -10,6 +10,4 @@ let updateLog = YAML.parse(fs.readFileSync(_logPath, "utf-8").toString());
 //
 yoolanVersion = Object.keys(updateLog.version)[0].toString();
 //
-let currentLog = updateLog.version[yoolanVersion].join("\n");
-//
-export {yoolanVersion, currentLog};
+export {yoolanVersion, updateLog};
