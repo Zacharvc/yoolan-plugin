@@ -1,8 +1,9 @@
 import {segment} from "oicq";
-import {exec} from "child_process";
-import {currentLog} from "../module/config.js";
+import {currentLog} from "./plugins/yoolan-plugin/module/config.js";
 
 const _path = process.cwd();
+const require = createRequire(import.meta.url);
+const { exec, execSync } = require('child_process');
 
 export class pluginManager extends plugin{
 	constructor(){
@@ -70,7 +71,7 @@ export class pluginManager extends plugin{
 					if(error){
 						//
 						e.reply("自动重启失败，请手动重启以应用新版Yoolan插件。\nError code: " + error.code + "\n" + error.stack + "\n");
-						Bot.logger.error("重启失败\n${error.stack}");
+						Bot.logger.error(`重启失败\n${error.stack}`);
 						//
 						return true;
 					}else if(stdout){
@@ -90,7 +91,7 @@ export class pluginManager extends plugin{
 		//
 		if(!await checkAuth(e)) return;
 		//
-		e.reply(currentLog);
+		e.reply(currentLog.toString());
 		//
 		return true;
 	};
