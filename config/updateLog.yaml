@@ -1,0 +1,5 @@
+#更新日志
+version:
+ - 1.0
+   - 初版悠懒插件
+   - 新增插件: pluginManager.js
