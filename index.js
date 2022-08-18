@@ -13,11 +13,11 @@ let apps = {};
 //
 const extensionsFile = fs.readdirSync("./plugins/yoolan-plugin/apps").filter((file) => file.endsWith(".js"));
 //
-for(let file of extensionsFile){
+for(let Afile of extensionsFile){
 	//
-	let fileName = file.replace(/(\.js)$/g, "");
+	let fileName = Afile.replace(/(\.js)$/g, "");
 	//
-	apps[fileName] = (await import('./apps/'+file))[fileName];
+	apps[fileName] = (await import("./apps/" + Afile))[fileName];
 }
 //
 export {apps};
