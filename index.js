@@ -1,5 +1,5 @@
 import fs from "fs";
-import {yoolanVersion, isV3} from "./module/config.js";
+import {yoolanVersion} from "./module/config.js";
 //
 let initMsg = [
 	"====================",
@@ -7,8 +7,6 @@ let initMsg = [
 	`当前插件版本: ${yoolanVersion}`,
 	"===================="
 ];
-//
-if(!isV3) initMsg.push("当前不是v3云崽！");
 //打印日志
 for(let Amsg of initMsg) logger.info(Amsg);
 //
