@@ -99,8 +99,6 @@ String.prototype.isInteger = function(){
 	return (!isNaN(this) && (parseInt(this).toString().length === this.length));
 };
 
-logger.info(JSON.stringify(plugin));
-
 export class pluginManager extends plugin{
 	constructor(){
 		super({
