@@ -3,6 +3,7 @@ import {exec} from "child_process";
 import {currentLog} from "../module/config.js";
 
 const _path = process.cwd();
+const _yoolanPluginPath = `${_path}/plugins/yoolan-plugin/`;
 
 export class admin extends plugin{
 	constructor(){
@@ -10,7 +11,7 @@ export class admin extends plugin{
 			name: "悠懒插件管理",
 			dsc: "Yoolan-plugin插件管理",
 			event: "message",
-			priority: 60000,
+			priority: 70000,
 			//
 			rule: [
 				{
@@ -18,7 +19,7 @@ export class admin extends plugin{
 					fnc: "updateYoolanPlugin"
 				},
 				{
-					reg: "#Yoolan日志",
+					reg: "^#*Yoolan更新日志$",
 					fnc: "updateYoolanLog"
 				}
 			]
