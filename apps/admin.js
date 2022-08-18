@@ -1,10 +1,8 @@
 import {segment} from "oicq";
 import {exec} from "child_process";
+import currentLog from "../module/config.js";
 
 const _path = process.cwd();
-const _yoolanPluginPath = `${_path}/plugins/yoolan-plugin`;
-
-let currentLog = require(`${_yoolanPluginPath}/module/config.js`);
 
 export class pluginManager extends plugin{
 	constructor(){
