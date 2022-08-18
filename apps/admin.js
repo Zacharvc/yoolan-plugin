@@ -1,6 +1,6 @@
 import {segment} from "oicq";
 import {exec} from "child_process";
-import currentLog from "../module/config.js";
+import {currentLog} from "../module/config.js";
 
 const _path = process.cwd();
 
