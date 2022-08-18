@@ -1,6 +1,6 @@
 import {segment} from "oicq";
 import {exec} from "child_process";
-import {currentLog} from "../module/config.js";
+import {yoolanVersion, currentLog} from "../module/config.js";
 
 const _path = process.cwd();
 const _yoolanPluginPath = `${_path}/plugins/yoolan-plugin/`;
@@ -91,7 +91,10 @@ export class admin extends plugin{
 		//
 		if(!e.isMaster) return;
 		//
-		e.reply(JSON.stringify(currentLog));
+		let replyMsg = [`当前版本: ${yoolanVersion}`];
+		for(let content of currentLog) replyMsg.push(content);
+		//
+		e.reply(replyMsg);
 		//
 		return true;
 	};
