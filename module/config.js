@@ -15,4 +15,4 @@ let currentLog = updateLog.version[yoolanVersion].join("\n");
 //
 const isV3 = packageJson.version[0] === "3";
 //
-export {yoolanVersion, currentLog, isV3};
+export default {yoolanVersion, currentLog, isV3};
