@@ -1,11 +1,10 @@
 import {segment} from "oicq";
-import {currentLog} from "./plugins/yoolan-plugin/module/config.js";
+import {exec} from "child_process";
+import {currentLog} from "../module/config.js";
 
 const _path = process.cwd();
-const require = createRequire(import.meta.url);
-const { exec, execSync } = require('child_process');
 
-export class pluginManager extends plugin{
+export class admin extends plugin{
 	constructor(){
 		super({
 			name: "悠懒插件管理",
