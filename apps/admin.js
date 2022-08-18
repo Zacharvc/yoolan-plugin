@@ -15,11 +15,11 @@ export class admin extends plugin{
 			//
 			rule: [
 				{
-					reg: "^#*(Yoolan|悠懒)(插件)*(强制)*更新",
+					reg: "^#*(Yoolan|悠懒)(插件)*(强制)*更新$",
 					fnc: "updateYoolanPlugin"
 				},
 				{
-					reg: "^#*Yoolan更新日志$",
+					reg: "^#*(Yoolan|悠懒)更新日志$",
 					fnc: "updateYoolanLog"
 				}
 			]
@@ -28,7 +28,7 @@ export class admin extends plugin{
 	//
 	async updateYoolanPlugin(e){
 		//
-		if(!await checkAuth(e)) return;
+		if(!e.isMaster) return;
 		//
 		let command = "git  pull";
 		let isForced = e.msg.includes("强制");
@@ -89,9 +89,9 @@ export class admin extends plugin{
 	//
 	async updateYoolanLog(e){
 		//
-		if(!await checkAuth(e)) return;
+		if(!e.isMaster) return;
 		//
-		e.reply(currentLog.toString());
+		e.reply(JSON.stringify(currentLog));
 		//
 		return true;
 	};
