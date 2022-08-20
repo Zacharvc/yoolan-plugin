@@ -55,7 +55,9 @@ export class info extends plugin{
 			return;
 		}
 		//
-		if(!Object.keys(gameDataInfo).includes(roalId)){
+		if(e.isMaster) e.reply(JSON.stringify(gameDataInfo)));
+		//
+		if(!Object.keys(gameDataInfo).includes(roalId.toString())){
 			//
 			e.reply(`没要找到 ${roalName}(${roalId}) 的数据`);
 			//
