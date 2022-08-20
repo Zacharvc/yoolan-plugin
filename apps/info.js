@@ -62,7 +62,7 @@ export class info extends plugin{
 			return;
 		}
 		//
-		e.reply(JSON.stringify(gameDataInfo.roalId));
+		e.reply(JSON.stringify(gameDataInfo[roalId]));
 		//
 		return true;
 	};
