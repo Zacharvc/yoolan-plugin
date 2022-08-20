@@ -10,14 +10,14 @@ let rareRoal = allCharacters.rareCharacters;
 export class info extends plugin{
 	constructor(){
 		super({
-			name: "获取信息",
-			dsc: "获取对应角色/物品信息",
+			name: "获取数据信息",
+			dsc: "获取对应角色/物品数据信息",
 			event: "message",
 			priority: 80000,
 			//
 			rule: [
 				{
-					reg: "^#*(.*)信息$",
+					reg: "^#*(.*)数据$",
 					fnc: "getInfo"
 				}
 				//
@@ -27,7 +27,7 @@ export class info extends plugin{
 	//
 	async getInfo(e){
 		//
-		let input = e.msg.replace(/(^#|(信息)$)/g, "");
+		let input = e.msg.replace(/(^#|(数据)$)/g, "");
 		//
 		let hasFound = false;
 		let roalName, roalId;
@@ -35,7 +35,7 @@ export class info extends plugin{
 		for(let item of rareRoal){
 			if(item.name.includes(input)){
 				hasFound = true;
-				roalName = item.name;
+				roalName = item.name[0];
 				roalId = item.id;
 			}
 		}
@@ -43,7 +43,7 @@ export class info extends plugin{
 		for(let item of commonRoal){
 			if(item.name.includes(input)){
 				hasFound = true;
-				roalName = item.name;
+				roalName = item.name[0];
 				roalId = item.id;
 			}
 		}
@@ -57,7 +57,7 @@ export class info extends plugin{
 		//
 		if(!Object.keys(gameDataInfo).includes(roalId)){
 			//
-			e.reply(`没要找到 ${roalName} 的信息`);
+			e.reply(`没要找到 ${roalName}(${roalId}) 的数据`);
 			//
 			return;
 		}
