@@ -27,7 +27,8 @@ async function searchTarget(target){
 	}
 	//
 	if(!hasFound) return false;
-	else return foundData;
+	//
+	return foundData;
 };
 //
 export class info extends plugin{
@@ -60,6 +61,9 @@ export class info extends plugin{
 		let hasFound = false;
 		//
 		let getData = searchTarget(input);
+		//
+		logger.info(getData);
+		//
 		if(getData){
 			hasFound = true;
 			roalId = getData.id;
