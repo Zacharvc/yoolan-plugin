@@ -128,10 +128,6 @@ export class pluginManager extends plugin{
 					reg: "^#*撤销删除$",
 					fnc: "recoverFile"
 				},
-				{
-					reg: "^#*查看(插件)*(.*)方法",
-					fnc: "gainExport"
-				},
 				//大范围检测一定放最后
 				{
 					reg: "(.*)",
@@ -237,8 +233,6 @@ export class pluginManager extends plugin{
 					"◎｜#开启(关闭)插件+序号", "\n",
 					"◎｜#确定删除文件+序号", "\n",
 					"◎｜#撤销删除", "\n",
-					"➥上述内容无需加号", "\n",
-					"➥括号内为可选项目，其功能如名", "\n",
 					"➥更新插件后请手动重启确保正常应用！"
 				]
 			};
@@ -277,7 +271,7 @@ export class pluginManager extends plugin{
 			let count = e.msg.replace(/#*(开启|启用|打开)插件/g, "").trim();
 			//
 			let tempFile;
-			if(Object.keys(extensionFileData).includes(count) || (!count.isInteger() && fs.existsSync(`${_extensionPath + count}`))){
+			if(Object.keys(extensionFileData).includes(count) || (!count.isInteger() && fs.existsSync(`${_extensionPath + count}`) && count.length > 0)){
 				//
 				if(count.isInteger()) tempFile = extensionFileData[parseInt(count)];
 				else tempFile = count;
@@ -306,7 +300,7 @@ export class pluginManager extends plugin{
 			let count = e.msg.replace(/#*(关闭|停用)插件/g, "").trim();
 			//
 			let tempFile;
-			if(Object.keys(extensionFileData).includes(count) || (!count.isInteger() && fs.existsSync(`${_extensionPath + count}`))){
+			if(Object.keys(extensionFileData).includes(count) || (!count.isInteger() && fs.existsSync(`${_extensionPath + count}`) && count.length > 0)){
 				//
 				if(count.isInteger()) tempFile = extensionFileData[parseInt(count)];
 				else tempFile = count;
@@ -577,15 +571,6 @@ export class pluginManager extends plugin{
 				if(error) console.log("删除文件失败了～");
 			});
 		}
-		//
-		return true;
-	};
-
-	async gainExport(e){
-		//
-		//if(!e.isMaster) return; //注释掉给群友开放权限
-		//
-		/*诶！是新功能诶！*/
 		//
 		return true;
 	};

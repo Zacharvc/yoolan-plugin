@@ -7,6 +7,29 @@ import {allCharacters, gameDataInfo} from "../config/index.js";
 let commonRoal = allCharacters.commonCharacters;
 let rareRoal = allCharacters.rareCharacters;
 //
+async function searchTarget(target){
+	//
+	let foundData;
+	let hasFound = false;
+	//五星角色
+	for(let item of rareRoal){
+		if(item.name.includes(input)){
+			hasFound = true;
+			foundData = item;
+		}
+	}
+	//四星角色
+	for(let item of commonRoal){
+		if(item.name.includes(input)){
+			hasFound = true;
+			foundData = item;
+		}
+	}
+	//
+	if(!hasFound) return false;
+	else return foundDate;
+};
+//
 export class info extends plugin{
 	constructor(){
 		super({
@@ -19,6 +42,10 @@ export class info extends plugin{
 				{
 					reg: "^#*(.*)数据$",
 					fnc: "getInfo"
+				},
+				{
+					reg: "^#*(.*)角色别名$",
+					fnc: "getRoalNickname"
 				}
 				//
 			]
@@ -29,40 +56,58 @@ export class info extends plugin{
 		//
 		let input = e.msg.replace(/(^#|(数据)$)/g, "");
 		//
-		let hasFound = false;
 		let roalName, roalId;
-		//五星角色
-		for(let item of rareRoal){
-			if(item.name.includes(input)){
-				hasFound = true;
-				roalName = item.name[0];
-				roalId = item.id;
-			}
-		}
-		//四星角色
-		for(let item of commonRoal){
-			if(item.name.includes(input)){
-				hasFound = true;
-				roalName = item.name[0];
-				roalId = item.id;
-			}
+		let hasFound = false;
+		//
+		let getData = searchTarget(input);
+		if(getData){
+			hasFound = true;
+			roalId = getData.id;
+			roalName = getData.name[0];
 		}
 		//
 		if(!hasFound){
 			//
-			e.reply(`没有找到 ${input} ！`);
+			e.reply(`没有找到目标：${input}`);
 			//
 			return;
 		}
 		//
 		if(!Object.keys(gameDataInfo).includes(roalId.toString())){
 			//
-			e.reply(`没要找到 ${roalName}(${roalId}) 的数据`);
+			e.reply(`暂时没有 ${roalName}(${roalId}) 的数据`);
 			//
 			return;
 		}
 		//
-		e.reply(JSON.stringify(gameDataInfo[roalId]));
+		if(gameDataInfo[roalId].info) e.reply(JSON.stringify(gameDataInfo[roalId].info));
+		//
+		return true;
+	};
+	//
+	async getRoalNickname(e){
+		//
+		let input = e.msg.replace(/(^#|(角色别名)$)/g, "");
+		//
+		let roalName, roalId, roalNickname;
+		let hasFound = false;
+		//
+		let getData = searchTarget(input);
+		if(getData){
+			hasFound = true;
+			roalId = getData.id;
+			roalName = getData.name[0];
+			roalNickname = getData.name;
+		}
+		//
+		if(!hasFound){
+			//
+			e.reply(`没有找到角色：${input}`);
+			//
+			return;
+		}
+		//
+		e.reply(roalNickname.join("\n"));
 		//
 		return true;
 	};
