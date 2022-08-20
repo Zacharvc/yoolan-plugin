@@ -55,7 +55,7 @@ export class info extends plugin{
 			return;
 		}
 		//
-		if(e.isMaster) e.reply(JSON.stringify(gameDataInfo)));
+		if(e.isMaster) e.reply(JSON.stringify(gameDataInfo));
 		//
 		if(!Object.keys(gameDataInfo).includes(roalId.toString())){
 			//
