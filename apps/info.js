@@ -60,7 +60,7 @@ export class info extends plugin{
 		let roalName, roalId;
 		let hasFound = false;
 		//
-		let getData = searchTarget(input);
+		let getData = await searchTarget(input);
 		//
 		logger.info(getData);
 		//
