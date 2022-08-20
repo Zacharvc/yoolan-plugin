@@ -79,7 +79,7 @@ export class info extends plugin{
 		//
 		if(!Object.keys(gameDataInfo).includes(roalId.toString())){
 			//
-			e.reply(`暂时没有 ${roalName}(${roalId}) 的数据`);
+			e.reply(`暂时没有${roalName}的数据`);
 			//
 			return;
 		}
@@ -96,7 +96,7 @@ export class info extends plugin{
 		let roalName, roalId, roalNickname;
 		let hasFound = false;
 		//
-		let getData = searchTarget(input);
+		let getData = await searchTarget(input);
 		if(getData){
 			hasFound = true;
 			roalId = getData.id;
