@@ -128,7 +128,6 @@ export class pluginManager extends plugin{
 					reg: "^#*撤销删除$",
 					fnc: "recoverFile"
 				},
-				//大范围检测一定放最后
 				{
 					reg: "(.*)",
 					fnc: "uploadFileAdd",
@@ -141,7 +140,7 @@ export class pluginManager extends plugin{
 
 	async extensionList(e){
 		//
-		//if(!e.isMaster) return; //注释掉给群友开放权限
+		//if(!e.isMaster) return false; //注释掉给群友开放权限
 		//
 		extensionFileData = {};
 		//
@@ -257,7 +256,7 @@ export class pluginManager extends plugin{
 
 	async changeExtension(e){
 		//
-		if(!e.isMaster) return;
+		if(!e.isMaster) return false;
 		//
 		if(Object.keys(extensionFileData).length <= 0){
 			//
@@ -331,11 +330,11 @@ export class pluginManager extends plugin{
 
 	async uploadFile(e){
 		//
-		if(!e.isMaster) return;
+		if(!e.isMaster) return false;
 		//
 		if(isUpload[e.user_id]){
 			e.reply("等待文件上传...");
-			return;
+			return false;
 		}
 		//
 		isUpload[e.user_id] = {};
@@ -348,7 +347,7 @@ export class pluginManager extends plugin{
 		//
 		e.reply("请上传需要安装的插件...");
 		//
-		if(waitUploadTime <= 0) return;
+		if(waitUploadTime <= 0) return false;
 		//
 		cancelDelay = setTimeout(() => {
 			if(isUpload[e.user_id]){
@@ -370,7 +369,7 @@ export class pluginManager extends plugin{
 
 	async uploadFileAdd(e){
 		//
-		if(!isUpload[e.user_id]) return;
+		if(!isUpload[e.user_id]) return false;
 		//
 		if(e.msg && /^#*结束安装$/.test(e.msg) && isUpload[e.user_id]["hasMore"]){
 			//
@@ -380,7 +379,7 @@ export class pluginManager extends plugin{
 			//
 			delete isUpload[e.user_id];
 			//
-			return;
+			return false;
 		}
 		//
 		if(e.message[0].type == "file"){
@@ -395,7 +394,7 @@ export class pluginManager extends plugin{
 					//
 					e.reply("安装失败: 文件过大，已取消本次安装");
 					//
-					return;
+					return false;
 				}else{
 					e.reply("安装失败: 文件过大，请发送其他文件");
 					//
@@ -440,14 +439,14 @@ export class pluginManager extends plugin{
 						}
 					}, waitUploadTime);
 					//
-					return;
+					return false;
 					//
 				}else{
 					//
 					delete isUpload[e.user_id];
 					//
 					e.reply("安装失败: 插件已存在，覆盖安装请使用 #覆盖安装插件");
-					return;
+					return false;
 				}
 				//
 			}
@@ -492,12 +491,12 @@ export class pluginManager extends plugin{
 			//
 		}
 		//
-		return true;
+		return false;
 	};
 
 	async deleteFile(e){
 		//
-		if(!e.isMaster) return;
+		if(!e.isMaster) return false;
 		//
 		if(!fs.existsSync(tempBackDir)) fs.mkdirSync(tempBackDir);
 		//
@@ -536,11 +535,11 @@ export class pluginManager extends plugin{
 
 	async recoverFile(e){
 		//
-		if(!e.isMaster) return;
+		if(!e.isMaster) return false;
 		//
 		if(!fs.existsSync(tempBackDir + "tempKeep.bak") || !fs.existsSync(tempBackDir)){
 			e.reply("没有可以还原的文件～");
-			return;
+			return false;
 		}
 		//
 		let tempBackFile = fs.readdirSync(tempBackDir);
