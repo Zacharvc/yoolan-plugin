@@ -7,7 +7,7 @@ import {allCharacters, gameDataInfo} from "../config/index.js";
 let commonRoal = allCharacters.commonCharacters;
 let rareRoal = allCharacters.rareCharacters;
 //
-export class pluginManager extends plugin{
+export class info extends plugin{
 	constructor(){
 		super({
 			name: "获取信息",
