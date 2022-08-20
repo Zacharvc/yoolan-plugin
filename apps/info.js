@@ -13,14 +13,14 @@ async function searchTarget(target){
 	let hasFound = false;
 	//五星角色
 	for(let item of rareRoal){
-		if(item.name.includes(input)){
+		if(item.name.includes(target)){
 			hasFound = true;
 			foundData = item;
 		}
 	}
 	//四星角色
 	for(let item of commonRoal){
-		if(item.name.includes(input)){
+		if(item.name.includes(target)){
 			hasFound = true;
 			foundData = item;
 		}
