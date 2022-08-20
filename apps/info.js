@@ -27,7 +27,7 @@ async function searchTarget(target){
 	}
 	//
 	if(!hasFound) return false;
-	else return foundDate;
+	else return foundData;
 };
 //
 export class info extends plugin{
