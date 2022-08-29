@@ -11,7 +11,6 @@ const _extensionPath = "./plugins/example/";
 
 const BotConfig = YAML.parse(fs.readFileSync("././config/config/qq.yaml", "utf-8").toString());
 
-let noneNotice = "※｜这里空空的●︿●";
 let notInputFile = "请发送文件对应的序号或者文件名(•́ω•̀ ٥)";
 
 //maxSize: 单个插件最大存储，6M
@@ -172,10 +171,12 @@ export class pluginManager extends plugin{
 				//
 			}
 			//
-			if(num == 0) pushMsg.push(noneNotice);
-			pushMsg.push("➥");
-			tempMsg.message = pushMsg.join("\n");
-			sendMsg.push(tempMsg);
+			if(num == 0) pushMsg.pop();
+			else{
+				pushMsg.push("➥");
+				tempMsg.message = pushMsg.join("\n");
+				sendMsg.push(tempMsg);
+			}
 			//
 			tempMsg = {user_id: BotQQ, nickname: BotName, message: []};
 			pushMsg = ["●======停用插件======●"];
@@ -195,10 +196,12 @@ export class pluginManager extends plugin{
 				//
 			}
 			//
-			if(num == 0) pushMsg.push(noneNotice);
-			pushMsg.push("➥");
-			tempMsg.message = pushMsg.join("\n");
-			sendMsg.push(tempMsg);
+			if(num == 0) pushMsg.pop();
+			else{
+				pushMsg.push("➥");
+				tempMsg.message = pushMsg.join("\n");
+				sendMsg.push(tempMsg);
+			}
 			//
 			tempMsg = {user_id: BotQQ, nickname: BotName, message: []};
 			pushMsg = ["●======其他文件======●"];
@@ -218,10 +221,12 @@ export class pluginManager extends plugin{
 				//
 			}
 			//
-			if(num == 0) pushMsg.push(noneNotice);
-			pushMsg.push("➥");
-			tempMsg.message = pushMsg.join("\n");
-			sendMsg.push(tempMsg);
+			if(num == 0) pushMsg.pop();
+			else{
+				pushMsg.push("➥");
+				tempMsg.message = pushMsg.join("\n");
+				sendMsg.push(tempMsg);
+			}
 			//
 			tempMsg = {
 				user_id: BotQQ,
