@@ -253,9 +253,9 @@ export class pluginManager extends plugin{
 			//plugins/system/add.js
 			forwardMsg.data = forwardMsg.data.replace(/\n/g, "").replace(/<title color="#([a-zA-Z0-9]+?)" size="(.+?)">(.+?)<\/title>/g, "___").replace(/(___)+/g, forwardTitle);
 			
-			await this.reply(forwardMsg, e.isGroup);
+			this.reply(forwardMsg);
 			
-		}else await this.reply("啊这，一个插件都木有？！ Σ(ﾟДﾟ|||)", e.isGroup);
+		}else this.reply("啊这，一个插件都木有？！ Σ(ﾟДﾟ|||)", e.isGroup);
 		
 		return true;
 	};
@@ -266,7 +266,7 @@ export class pluginManager extends plugin{
 		
 		if(Object.keys(extensionFileData).length <= 0){
 			
-			await this.reply("数据不完整，建议使用 #插件管理 初始化数据", e.isGroup);
+			this.reply("数据不完整，建议使用 #插件管理 初始化数据", e.isGroup);
 			
 			return false;
 		}
@@ -283,7 +283,7 @@ export class pluginManager extends plugin{
 				
 				let tempFileName = tempFile.split(`.${tempFile.replace(/.*\./g, "").trim()}`)[0];
 				
-				if(!/(\.unable)$/.test(tempFile)) await this.reply(`【${tempFileName}】并未关闭`, e.isGroup);
+				if(!/(\.unable)$/.test(tempFile)) this.reply(`【${tempFileName}】并未关闭`, e.isGroup);
 				else{
 					let afterFile = tempFile.replace(/(\.unable)$/g, "").trim();
 					if(!/(\.js)$/.test(afterFile)) afterFile += ".js";
@@ -292,13 +292,13 @@ export class pluginManager extends plugin{
 						if(error) console.log("文件重命名失败了～");
 					});
 					
-					await this.reply(`【${tempFileName}】已开启`, e.isGroup);
+					this.reply(`【${tempFileName}】已开启`, e.isGroup);
 					
 					extensionFileDataInit(true);
 				}
 			}else{
-				if(count.length == 0) await this.reply(notInputFile, e.isGroup);
-				else await this.reply(`没有找到“${count}”所对应的文件(。_。)`, e.isGroup);
+				if(count.length == 0) this.reply(notInputFile, e.isGroup);
+				else this.reply(`没有找到“${count}”所对应的文件(。_。)`, e.isGroup);
 			}
 		}else if(/^#*(关闭|停用)插件(.*)$/.test(e.msg)){
 			//关闭
@@ -312,7 +312,7 @@ export class pluginManager extends plugin{
 				
 				let tempFileName = tempFile.split(`.${tempFile.replace(/.*\./g, "").trim()}`)[0];
 				
-				if(!/(\.js)$/.test(tempFile)) await this.reply(`【${tempFileName}】并未开启`, e.isGroup);
+				if(!/(\.js)$/.test(tempFile)) this.reply(`【${tempFileName}】并未开启`, e.isGroup);
 				else{
 					let afterFile = tempFile.replace(/(\.js)$/g, "").trim();
 					if(!/(\.unable)$/.test(afterFile)) afterFile += ".unable"; //停用插件后修改的后缀名
@@ -321,13 +321,13 @@ export class pluginManager extends plugin{
 						if(error) console.log("文件重命名失败了～");
 					});
 					
-					await this.reply(`【${tempFileName}】已关闭`, e.isGroup);
+					this.reply(`【${tempFileName}】已关闭`, e.isGroup);
 					
 					extensionFileDataInit(true);
 				}
 			}else{
-				if(count.length == 0) await this.reply(notInputFile, e.isGroup);
-				else await this.reply(`没有找到“${count}”所对应的文件(。_。)`, e.isGroup);
+				if(count.length == 0) this.reply(notInputFile, e.isGroup);
+				else this.reply(`没有找到“${count}”所对应的文件(。_。)`, e.isGroup);
 			}
 		}
 		
@@ -339,7 +339,7 @@ export class pluginManager extends plugin{
 		if(!e.isMaster) return false;
 		
 		if(isUpload[e.user_id]){
-			await this.reply("等待文件上传...", e.isGroup);
+			this.reply("等待文件上传...", e.isGroup);
 			return false;
 		}
 		
@@ -351,7 +351,7 @@ export class pluginManager extends plugin{
 		if(/多个/.test(e.msg)) isUpload[e.user_id]["hasMore"] = true;
 		else isUpload[e.user_id]["hasMore"] = false;
 		
-		await this.reply("请上传需要安装的插件...", e.isGroup);
+		this.reply("请上传需要安装的插件...", e.isGroup);
 		
 		if(waitUploadTime <= 0) return false;
 		
@@ -359,11 +359,11 @@ export class pluginManager extends plugin{
 			if(isUpload[e.user_id]){
 				
 				if(!isUpload[e.user_id]["hasMore"]){
-					await this.reply(`等待超时，已取消本次安装`, e.isGroup);
+					this.reply(`等待超时，已取消本次安装`, e.isGroup);
 				}else{
 					let num = 0;
 					if(isUpload[e.user_id]["num"]) num = isUpload[e.user_id]["num"];
-					await this.reply(`等待超时，安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
+					this.reply(`等待超时，安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
 				}
 				
 				delete isUpload[e.user_id];
@@ -381,7 +381,7 @@ export class pluginManager extends plugin{
 			
 			let num = 0;
 			if(isUpload[e.user_id]["num"]) num = isUpload[e.user_id]["num"];
-			await this.reply(`安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
+			this.reply(`安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
 			
 			delete isUpload[e.user_id];
 			
@@ -398,21 +398,21 @@ export class pluginManager extends plugin{
 					
 					delete isUpload[e.user_id];
 					
-					await this.reply("安装失败: 文件过大，已取消本次安装", e.isGroup);
+					this.reply("安装失败: 文件过大，已取消本次安装", e.isGroup);
 					
 					return false;
 				}else{
-					await this.reply("安装失败: 文件过大，请发送其他文件", e.isGroup);
+					this.reply("安装失败: 文件过大，请发送其他文件", e.isGroup);
 					
 					cancelDelay = setTimeout(() => {
 						if(isUpload[e.user_id]){
 							
 							if(!isUpload[e.user_id]["hasMore"]){
-								await this.reply(`等待超时，已取消本次安装`, e.isGroup);
+								this.reply(`等待超时，已取消本次安装`, e.isGroup);
 							}else{
 								let num = 0;
 								if(isUpload[e.user_id]["num"]) num = isUpload[e.user_id]["num"];
-								await this.reply(`等待超时，安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
+								this.reply(`等待超时，安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
 							}
 							
 							delete isUpload[e.user_id];
@@ -428,17 +428,17 @@ export class pluginManager extends plugin{
 				
 				if(isUpload[e.user_id]["hasMore"]){
 					
-					await this.reply("安装失败: 插件已存在，覆盖安装请使用 #覆盖安装多个插件", e.isGroup);
+					this.reply("安装失败: 插件已存在，覆盖安装请使用 #覆盖安装多个插件", e.isGroup);
 					
 					cancelDelay = setTimeout(() => {
 						if(isUpload[e.user_id]){
 							
 							if(!isUpload[e.user_id]["hasMore"]){
-								await this.reply(`等待超时，已取消本次安装`, e.isGroup);
+								this.reply(`等待超时，已取消本次安装`, e.isGroup);
 							}else{
 								let num = 0;
 								if(isUpload[e.user_id]["num"]) num = isUpload[e.user_id]["num"];
-								await this.reply(`等待超时，安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
+								this.reply(`等待超时，安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
 							}
 							
 							delete isUpload[e.user_id];
@@ -451,7 +451,7 @@ export class pluginManager extends plugin{
 					
 					delete isUpload[e.user_id];
 					
-					await this.reply("安装失败: 插件已存在，覆盖安装请使用 #覆盖安装插件", e.isGroup);
+					this.reply("安装失败: 插件已存在，覆盖安装请使用 #覆盖安装插件", e.isGroup);
 					return false;
 				}
 				
@@ -469,25 +469,25 @@ export class pluginManager extends plugin{
 				
 				delete isUpload[e.user_id];
 				
-				if(response.ok) await this.reply("安装成功，可使用 #插件列表 检查是否正确安装", e.isGroup);
-				else await this.reply("安装失败: 文件下载失败", e.isGroup);
+				if(response.ok) this.reply("安装成功，可使用 #插件列表 检查是否正确安装", e.isGroup);
+				else this.reply("安装失败: 文件下载失败", e.isGroup);
 			}else{
 				
 				if(isUpload[e.user_id] && !isUpload[e.user_id]["num"]) isUpload[e.user_id]["num"] = 0;
 				isUpload[e.user_id]["num"] += 1;
 				
-				if(response.ok) await this.reply("安装成功，请继续发送需要安装的文件或者使用 #结束安装 来完成安装", e.isGroup);
-				else await this.reply("安装失败: 文件下载失败，请发送新文件...", e.isGroup);
+				if(response.ok) this.reply("安装成功，请继续发送需要安装的文件或者使用 #结束安装 来完成安装", e.isGroup);
+				else this.reply("安装失败: 文件下载失败，请发送新文件...", e.isGroup);
 				
 				cancelDelay = setTimeout(() => {
 					if(isUpload[e.user_id]){
 						
 						if(!isUpload[e.user_id]["hasMore"]){
-							await this.reply(`等待超时，已取消本次安装`, e.isGroup);
+							this.reply(`等待超时，已取消本次安装`, e.isGroup);
 						}else{
 							let num = 0;
 							if(isUpload[e.user_id]["num"]) num = isUpload[e.user_id]["num"];
-							await this.reply(`等待超时，安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
+							this.reply(`等待超时，安装结束，本次共安装了 ${num} 个文件`, e.isGroup);
 						}
 						
 						delete isUpload[e.user_id];
@@ -508,14 +508,14 @@ export class pluginManager extends plugin{
 		
 		if(Object.keys(extensionFileData).length <= 0){
 			
-			await this.reply("数据不完整，建议使用 #插件管理 初始化数据", e.isGroup);
+			this.reply("数据不完整，建议使用 #插件管理 初始化数据", e.isGroup);
 			
 			return false;
 		}
 		
 		let count = e.msg.replace(/^#确定删除文件/g, "").trim();
 		
-		if(count.length == 0) await this.reply(notInputFile, e.isGroup);
+		if(count.length == 0) this.reply(notInputFile, e.isGroup);
 		else{
 			let tempFile;
 			if(Object.keys(extensionFileData).includes(count) || (!count.isInteger() && fs.existsSync(`${_extensionPath + count}`))){
@@ -532,8 +532,8 @@ export class pluginManager extends plugin{
 				
 				extensionFileDataInit(true);
 				
-				await this.reply(`【${tempFile}】已删除，你可以使用 #撤销删除 来还原文件`, e.isGroup);
-			}else await this.reply(`没有找到“${count}”所对应的文件(。_。)`, e.isGroup);
+				this.reply(`【${tempFile}】已删除，你可以使用 #撤销删除 来还原文件`, e.isGroup);
+			}else this.reply(`没有找到“${count}”所对应的文件(。_。)`, e.isGroup);
 		}
 		
 		return true;
@@ -544,7 +544,7 @@ export class pluginManager extends plugin{
 		if(!e.isMaster) return false;
 		
 		if(!fs.existsSync(tempBackDir + "tempKeep.bak") || !fs.existsSync(tempBackDir)){
-			await this.reply("没有可以还原的文件～", e.isGroup);
+			this.reply("没有可以还原的文件～", e.isGroup);
 			return false;
 		}
 		
@@ -569,7 +569,7 @@ export class pluginManager extends plugin{
 		
 		extensionFileDataInit(true);
 		
-		await this.reply(`【${fileName}】文件已恢复`, e.isGroup);
+		this.reply(`【${fileName}】文件已恢复`, e.isGroup);
 		
 		for(let item of tempBackFile){
 			fs.unlink(`${tempBackDir + item}`, (error) => {
